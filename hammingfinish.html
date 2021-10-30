@@ -73,9 +73,9 @@
                 let result = '';
 
                 if (index != -1)
-                    result = 'problem in ' + index.toString() + ' bits';
+                    result = 'Problem in ' + index.toString() + ' bits';
                 else
-                    result = 'no problem. Congratulations!';
+                    result = 'No problem. Congratulations!';
                 
                 document.getElementById('decodeData').value = inputDigits.join('');
 
@@ -89,6 +89,6 @@
        <p> <input type='text' id='codedData' maxlength="7" /> coded data </p>
        <p> click to continue <input type='button' onclick='decode()' value='Decode' /> </p>
        <p> <input type='text'  id='decodeData'/> Decoded data </p>
-       <p> result <input type='text' id='result' /> </p>
+       <p> result <input size="23px" type='text' id='result' /> </p>
     </body>
 </html>
