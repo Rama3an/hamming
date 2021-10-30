@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hamming code</title>
+        <script>
+            function code(){
+                let message = document.getElementById('inputData').value;
+                let inputDigits = message.split('');
+
+                for (let i = 0; i < inputDigits.length; ++i)
+                    inputDigits[i] *= 1;
+
+                inputDigits.push((inputDigits[0] + inputDigits[2] + inputDigits[3]) % 2);
+                inputDigits.push((inputDigits[0] + inputDigits[3] + inputDigits[1]) % 2);
+                inputDigits.push((inputDigits[1] + inputDigits[2] + inputDigits[3]) % 2);
+                
+                document.getElementById('codedData').value = inputDigits.join('');
+
+            }
+
+            function decode(){
+
+                let message = document.getElementById('codedData').value;
+                
+                let inputDigits = message.split('');
+
+                for (let i = 0; i < inputDigits.length; ++i)
+                    inputDigits[i] *= 1;
+
+                let index = -1;
+                
+                if ((inputDigits[0] + inputDigits[2] + inputDigits[3]) % 2 === inputDigits[4]){
+
+                    if (((inputDigits[0] + inputDigits[3] + inputDigits[1]) % 2 != inputDigits[5]) && ((inputDigits[1] + inputDigits[2] + inputDigits[3]) % 2 != inputDigits[6])){
+                        inputDigits[1] = (inputDigits[1] === 1 ? 0 : 1);
+                        index = 2;
+                        }
+
+                    if (((inputDigits[0] + inputDigits[3] + inputDigits[1]) % 2 === inputDigits[5]) && ((inputDigits[1] + inputDigits[2] + inputDigits[3]) % 2 != inputDigits[6])){
+                        inputDigits[6] = (inputDigits[6] === 1 ? 0 : 1);
+                        index = 7;
+                        }
+
+                    if (((inputDigits[0] + inputDigits[3] + inputDigits[1]) % 2 != inputDigits[5]) && ((inputDigits[1] + inputDigits[2] + inputDigits[3]) % 2 === inputDigits[6])){
+                        inputDigits[5] = (inputDigits[5] === 1 ? 0 : 1);
+                        index = 6;
+                        }
+                }
+                else{
+
+                    if (((inputDigits[0] + inputDigits[3] + inputDigits[1]) % 2 === inputDigits[5]) && ((inputDigits[1] + inputDigits[2] + inputDigits[3]) % 2 === inputDigits[6])){
+                        inputDigits[4] = (inputDigits[4] === 1 ? 0 : 1);
+                        index = 5;
+                        }
+
+                    if (((inputDigits[0] + inputDigits[3] + inputDigits[1]) % 2 != inputDigits[5]) && ((inputDigits[1] + inputDigits[2] + inputDigits[3]) % 2 != inputDigits[6])){
+                        inputDigits[3] = (inputDigits[3] === 1 ? 0 : 1);
+                        index = 4;
+                        }
+
+                    if (((inputDigits[0] + inputDigits[3] + inputDigits[1]) % 2 === inputDigits[5]) && ((inputDigits[1] + inputDigits[2] + inputDigits[3]) % 2 != inputDigits[6])){
+                        inputDigits[2] = (inputDigits[2] === 1 ? 0 : 1);
+                        index = 3;
+                        }
+
+                    if (((inputDigits[0] + inputDigits[3] + inputDigits[1]) % 2 != inputDigits[5]) && ((inputDigits[1] + inputDigits[2] + inputDigits[3]) % 2 === inputDigits[6])){
+                        inputDigits[0] = (inputDigits[0] === 1 ? 0 : 1);
+                        index = 1;
+                        }
+
+                }
+                
+                let result = '';
+
+                if (index != -2)
+                    result = 'problem in ' + index.toString() + ' bits';
+                else
+                    result = 'no problem. Congratulations!';
+                
+                document.getElementById('decodeData').value = inputDigits.join('');
+
+                document.getElementById('result').value = result;
+            }
+        </script>
+    </head>
+    <body>
+       <p>  <input type='text' id='inputData' maxlength="4" /> input data </p>
+       <p> click to start <input type='button' onclick='code()' value='Code' /> </p>
+       <p> <input type='text' id='codedData' maxlength="7" /> coded data </p>
+       <p> click to continue <input type='button' onclick='decode()' value='Decode' /> </p>
+       <p> <input type='text'  id='decodeData'/> Decoded data </p>
+       <p> result <input type='text' id='result' /> </p>
+    </body>
+</html>
