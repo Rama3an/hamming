@@ -81,14 +81,30 @@
 
                 document.getElementById('result').value = result;
             }
+            
+            function isNumberKey(evt){
+                var charCode = (evt.which) ? evt.which : event.keyCode
+                if (charCode > 31 && (charCode < 48 || charCode > 49))
+                    return false;
+                return true;
+            }
+            
         </script>
+            <style>
+            .vyrovnyat {
+              padding: 2em 0;
+              text-align: center;
+            }
+            </style>
     </head>
     <body>
-       <p>  <input type='text' id='inputData' maxlength="4" /> input data </p>
-       <p> click to start <input type='button' onclick='code()' value='Code' /> </p>
-       <p> <input type='text' id='codedData' maxlength="7" /> coded data </p>
-       <p> click to continue <input type='button' onclick='decode()' value='Decode' /> </p>
-       <p> <input type='text'  id='decodeData'/> Decoded data </p>
-       <p> result <input size="23px" type='text' id='result' /> </p>
+       <p align="center"> <h1 class="vyrovnyat" >Hamming code </h1> </p>
+       <p align="center">  <input type='text' id='inputData' maxlength="4" onkeypress='return isNumberKey(event)' /> input data </p>
+       <p align="center"> <input type='button' onclick='code()' value='Code' /> click to start </p>
+       <p align="center"> <input type='text' id='codedData' maxlength="7" onkeypress='return isNumberKey(event)'/> coded data </p>
+       <p align="center">  <input type='button' onclick='decode()' value='Decode' /> click to continue </p>
+       <p align="center"> <input type='text' size="18px" id='decodeData' onkeypress='return isNumberKey(event)'/> Decoded data </p>
+       <p align="center"> Result </p>
+       <p align="center"> <output  type='text' id='result'></output> </p>
     </body>
 </html>
